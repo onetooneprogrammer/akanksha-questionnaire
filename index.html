@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Akanksha Questionnaire</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #ffdde1, #ee9ca7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      max-width: 500px;
+      text-align: center;
+    }
+    h1 {
+      color: #d6336c;
+    }
+    .question {
+      font-size: 1.2em;
+      margin: 20px 0;
+    }
+    .options button {
+      background: #d6336c;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .options button:hover {
+      background: #a61e4d;
+    }
+    .progress {
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💖 Did You Like 💖</h1>
+    <div id="quiz">
+      <div class="question" id="question"></div>
+      <div class="options" id="options"></div>
+      <div class="progress" id="progress"></div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      { q: "Do you prefer staying in nuclear family or joint family?", options: ["Nuclear", "Joint"] },
+      { q: "Do you enjoy frequent social events?", options: ["Yes", "Sometimes", "No"] },
+      { q: "How important is travel for you?", options: ["Very", "Somewhat", "Not much"] },
+      { q: "Do you want to continue working after marriage?", options: ["Yes", "Maybe", "No"] },
+      { q: "What are your long-term goals?", options: ["(Write your thoughts)"] },
+      { q: "Are you more outdoor or home-loving?", options: ["Outdoor", "Home"] },
+      { q: "How do you like spending weekends?", options: ["Relaxing", "Outings", "Family time"] },
+      { q: "Do you react strongly to possessiveness?", options: ["Yes", "No", "Depends"] },
+      { q: "Do you value independence highly?", options: ["Yes", "Moderate", "Not much"] }
+    ];
+
+    let current = 0;
+    const answers = [];
+
+    function showQuestion() {
+      if (current < questions.length) {
+        document.getElementById("question").innerText = questions[current].q;
+        const optionsDiv = document.getElementById("options");
+        optionsDiv.innerHTML = "";
+        questions[current].options.forEach(opt => {
+          const btn = document.createElement("button");
+          btn.innerText = opt;
+          btn.onclick = () => {
+            answers.push({ question: questions[current].q, answer: opt });
+            current++;
+            showQuestion();
+          };
+          optionsDiv.appendChild(btn);
+        });
+        document.getElementById("progress").innerText = `Question ${current+1} of ${questions.length}`;
+      } else {
+        document.getElementById("quiz").innerHTML = `
+          <h2>🌹 Thank You 🌹</h2>
+          <p>Your answers mean the world to me.<br>
+          They help me understand you better and dream of our future together.</p>
+        `;
+      }
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
